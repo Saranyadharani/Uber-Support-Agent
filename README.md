@@ -8,4 +8,7 @@ drafts a reply grounded in how Uber has historically resolved similar cases
 (RAG over resolved threads), and decides auto-handle vs. escalate-to-human
 with a stated, rule-based reason.
 
+Architecture :
+
+<img width="3596" height="1611" alt="image" src="https://github.com/user-attachments/assets/54483391-561a-4c57-a7b5-ce2b5d8746ae" />
 
