@@ -1,0 +1,225 @@
+{
+  "keyword_baseline": {
+    "intent": {
+      "account_payment_issue": {
+        "precision": 0.9,
+        "recall": 0.5142857142857142,
+        "f1-score": 0.6545454545454545,
+        "support": 35.0
+      },
+      "driver_behavior_complaint": {
+        "precision": 0.65,
+        "recall": 0.52,
+        "f1-score": 0.5777777777777777,
+        "support": 25.0
+      },
+      "fare_dispute": {
+        "precision": 0.95,
+        "recall": 0.36538461538461536,
+        "f1-score": 0.5277777777777778,
+        "support": 52.0
+      },
+      "general_inquiry": {
+        "precision": 0.35,
+        "recall": 0.9130434782608695,
+        "f1-score": 0.5060240963855421,
+        "support": 23.0
+      },
+      "lost_item": {
+        "precision": 0.75,
+        "recall": 0.7894736842105263,
+        "f1-score": 0.7692307692307693,
+        "support": 19.0
+      },
+      "trip_cancellation_refund": {
+        "precision": 0.2,
+        "recall": 0.6666666666666666,
+        "f1-score": 0.3076923076923077,
+        "support": 6.0
+      },
+      "trip_safety_incident": {
+        "precision": 0.8,
+        "recall": 0.8,
+        "f1-score": 0.8,
+        "support": 20.0
+      },
+      "accuracy": 0.5888888888888889,
+      "macro avg": {
+        "precision": 0.6571428571428573,
+        "recall": 0.6526934512583418,
+        "f1-score": 0.5918640262013756,
+        "support": 180.0
+      },
+      "weighted avg": {
+        "precision": 0.7591666666666667,
+        "recall": 0.5888888888888889,
+        "f1-score": 0.6049892915354762,
+        "support": 180.0
+      }
+    },
+    "escalation": {
+      "precision": 0.6333333333333333,
+      "recall": 1.0,
+      "f1": 0.7755102040816326,
+      "false_negative_rate": 0.0,
+      "false_negative_count": 0,
+      "false_negative_examples": [],
+      "false_positive_count": 66
+    }
+  },
+  "simple_baseline": {
+    "intent": {
+      "account_payment_issue": {
+        "precision": 0.9,
+        "recall": 0.2571428571428571,
+        "f1-score": 0.4,
+        "support": 35.0
+      },
+      "driver_behavior_complaint": {
+        "precision": 0.6153846153846154,
+        "recall": 0.32,
+        "f1-score": 0.42105263157894735,
+        "support": 25.0
+      },
+      "fare_dispute": {
+        "precision": 0.7777777777777778,
+        "recall": 0.2692307692307692,
+        "f1-score": 0.4,
+        "support": 52.0
+      },
+      "general_inquiry": {
+        "precision": 1.0,
+        "recall": 0.043478260869565216,
+        "f1-score": 0.08333333333333333,
+        "support": 23.0
+      },
+      "lost_item": {
+        "precision": 0.6,
+        "recall": 0.9473684210526315,
+        "f1-score": 0.7346938775510204,
+        "support": 19.0
+      },
+      "trip_cancellation_refund": {
+        "precision": 0.125,
+        "recall": 0.8333333333333334,
+        "f1-score": 0.21739130434782608,
+        "support": 6.0
+      },
+      "trip_safety_incident": {
+        "precision": 0.14705882352941177,
+        "recall": 0.5,
+        "f1-score": 0.22727272727272727,
+        "support": 20.0
+      },
+      "accuracy": 0.3611111111111111,
+      "macro avg": {
+        "precision": 0.5950316023845437,
+        "recall": 0.45293623451845094,
+        "f1-score": 0.3548205534405506,
+        "support": 180.0
+      },
+      "weighted avg": {
+        "precision": 0.6967790905536003,
+        "recall": 0.3611111111111111,
+        "f1-score": 0.37251093611750685,
+        "support": 180.0
+      }
+    },
+    "escalation": {
+      "precision": 0.8,
+      "recall": 0.6666666666666666,
+      "f1": 0.7272727272727273,
+      "false_negative_rate": 0.3333333333333333,
+      "false_negative_count": 38,
+      "false_negative_examples": [
+        "@Uber_Support We missed our schedule because of you guys! \ud83d\ude21\ud83d\ude21\ud83d\ude21",
+        "@Uber_Support what a joke",
+        "@Uber_Support You \"responded\" over TWELVE HOURS too late.  And ur \"response\" just pointed me 2 another damn form. You still have ZERO customer service!",
+        "@115873 yall gave poor communication service &amp; unprofessional drives !! U need aa associate representatives call center ASAP!! I'm suing You",
+        "@115873 your response is notgood enough.Why should I have had to get out a cab and order another because ur driver was shit. I expect a refund https://t.co/Y5SKLymVWu"
+      ],
+      "false_positive_count": 19
+    }
+  },
+  "system": {
+    "intent": {
+      "account_payment_issue": {
+        "precision": 0.9375,
+        "recall": 0.8571428571428571,
+        "f1-score": 0.8955223880597015,
+        "support": 35.0
+      },
+      "driver_behavior_complaint": {
+        "precision": 0.7619047619047619,
+        "recall": 0.64,
+        "f1-score": 0.6956521739130435,
+        "support": 25.0
+      },
+      "fare_dispute": {
+        "precision": 0.896551724137931,
+        "recall": 0.5,
+        "f1-score": 0.6419753086419753,
+        "support": 52.0
+      },
+      "general_inquiry": {
+        "precision": 0.65625,
+        "recall": 0.9130434782608695,
+        "f1-score": 0.7636363636363637,
+        "support": 23.0
+      },
+      "lost_item": {
+        "precision": 0.8181818181818182,
+        "recall": 0.9473684210526315,
+        "f1-score": 0.8780487804878049,
+        "support": 19.0
+      },
+      "trip_cancellation_refund": {
+        "precision": 0.10714285714285714,
+        "recall": 0.5,
+        "f1-score": 0.17647058823529413,
+        "support": 6.0
+      },
+      "trip_safety_incident": {
+        "precision": 0.9375,
+        "recall": 0.75,
+        "f1-score": 0.8333333333333334,
+        "support": 20.0
+      },
+      "accuracy": 0.7166666666666667,
+      "macro avg": {
+        "precision": 0.7307187373381954,
+        "recall": 0.7296506794937654,
+        "f1-score": 0.6978055623296451,
+        "support": 180.0
+      },
+      "weighted avg": {
+        "precision": 0.8250715021727952,
+        "recall": 0.7166666666666667,
+        "f1-score": 0.7449408742682302,
+        "support": 180.0
+      }
+    },
+    "escalation": {
+      "precision": 0.9444444444444444,
+      "recall": 0.7456140350877193,
+      "f1": 0.8333333333333334,
+      "false_negative_rate": 0.2543859649122807,
+      "false_negative_count": 29,
+      "false_negative_examples": [
+        "@Uber_Support what a joke",
+        "@Uber_Support are worst customer support team I have ever came across. 0 help",
+        "@Uber_Support My ID and number is available in your app",
+        "@Uber_Support You\u2019ve already responded, but it was w/ canned responses and without consideration of my defense points. Should we try again?",
+        "@Uber_Support ok wtf. I\u2019ve reset my password. I still can\u2019t log into the disabled-account webpage. So ridiculous."
+      ],
+      "false_positive_count": 5
+    }
+  },
+  "reply_quality_means": {
+    "grounded": 3.55,
+    "safe": 4.816666666666666,
+    "actionable": 4.011111111111111,
+    "tone": 3.5833333333333335,
+    "overall": 3.6666666666666665
+  }
+}

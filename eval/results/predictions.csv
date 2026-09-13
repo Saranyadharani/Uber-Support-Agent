@@ -1,0 +1,200 @@
+text,human_intent,human_escalate,pred_intent_keyword,pred_intent_knn,pred_intent_llm,pred_escalate_trivial,pred_escalate_simple,pred_escalate_system
+@Uber_Support i think i left my car keys in an uber in high wycombe is there a way of finding out??,lost_item,False,lost_item,lost_item,lost_item,True,True,False
+@Uber_Support @115873 @119983 . I had to pay ₹40 as cancellation charge where in the driver refused to wait saying,fare_dispute,True,driver_behavior_complaint,fare_dispute,trip_cancellation_refund,True,True,True
+@Uber_Support my ubereats promo code isn't working for others,account_payment_issue,False,account_payment_issue,account_payment_issue,account_payment_issue,True,False,False
+@Uber_Support I just sent a DM over,general_inquiry,False,general_inquiry,trip_safety_incident,general_inquiry,True,False,False
+#Uber driver was trash he was so rude,driver_behavior_complaint,False,driver_behavior_complaint,driver_behavior_complaint,driver_behavior_complaint,True,False,False
+@Uber_Support can you please help me to log into my account? Thanks.,account_payment_issue,False,general_inquiry,trip_safety_incident,account_payment_issue,True,False,False
+"@Uber_Support my account cannot use again, please help check: __email__. tks.",account_payment_issue,False,general_inquiry,trip_safety_incident,account_payment_issue,True,False,False
+@115873 I need some help with my account I don’t got my go bank card and I can’t changed my information,account_payment_issue,False,general_inquiry,trip_cancellation_refund,account_payment_issue,True,False,False
+"@115873 lost my phone in my last Uber ride some 30 minutes ago, please help.",lost_item,False,lost_item,lost_item,lost_item,True,True,False
+@Uber_Support We missed our schedule because of you guys! 😡😡😡,driver_behavior_complaint,True,general_inquiry,trip_safety_incident,general_inquiry,True,False,True
+"...Then I started to think, wait a minute, is his foot going to be securely on the  brake, or are we going to just drive off and crash into another car! #Uber",trip_safety_incident,True,trip_safety_incident,trip_safety_incident,trip_safety_incident,True,True,True
+@Uber_Support Hi. I just completed a ride and realized paid with wrong card. Can I change payment method? Thanks,account_payment_issue,False,account_payment_issue,trip_cancellation_refund,account_payment_issue,True,False,False
+"@115873 VERY unhappy with @115873 customer service. I've been incorrectly charged on  personal trips after attempting to use credits/points that I have on file. I've opened customer complaints but responses are unhelpful and issue not resolved, totaling over $150 of incorrect charges",fare_dispute,True,fare_dispute,fare_dispute,fare_dispute,True,True,True
+Wow @115873 at Dubai Mall closing time is absolute shit. I’ve had no less than four drivers cancel on me. Been waiting for 60+ mins.,driver_behavior_complaint,False,general_inquiry,fare_dispute,trip_cancellation_refund,True,True,False
+"@Uber_Support Hi, I am having problem loggin into my uber account. Please help.",account_payment_issue,False,general_inquiry,trip_safety_incident,account_payment_issue,True,False,False
+"@Uber_Support last night i ordered an uber and the driver went to the destination instead of where i was. cancelled trip, id like a refund",trip_cancellation_refund,True,trip_cancellation_refund,trip_cancellation_refund,trip_cancellation_refund,True,True,True
+"@115873 @Uber_Support can you please justify this, 11 km of distance 129Rs was the fare in Uber pool &amp; here come the final bill of 1046 Rs. https://t.co/4SKqbHq7M1",fare_dispute,True,general_inquiry,trip_safety_incident,fare_dispute,True,True,True
+@Uber_Support @115873 @131077 @131434 HELP I HAVE LEFT MY PASSPORT IN AN UBER,lost_item,False,lost_item,lost_item,lost_item,True,True,False
+@Uber_Support There are no additional questions as your team has made it very clear that I won't be getting a refund for this shit show,fare_dispute,True,trip_cancellation_refund,trip_cancellation_refund,fare_dispute,True,True,True
+@Uber_Support Got a promo code through message and when applying in the app it says invalid code.(It has not expired)Screenshot is attached. https://t.co/TRBwQK3QTc,account_payment_issue,False,account_payment_issue,account_payment_issue,account_payment_issue,True,False,False
+@115873 I've left my phone in an uber and have tried to contact the driver through the app with no response. Its been over 24h can you help?,lost_item,False,lost_item,lost_item,lost_item,True,True,False
+@Uber_Support what a joke,account_payment_issue,True,general_inquiry,lost_item,account_payment_issue,True,False,False
+I should get a full refund when a @115873 driver makes me car sick 🙃,fare_dispute,True,trip_cancellation_refund,trip_cancellation_refund,trip_cancellation_refund,True,True,True
+are you joking @115873 said your driver was 5 ins away then cancelled on ME AND I GOT CHARGER NOPE https://t.co/2CdVpCTdCW,fare_dispute,True,driver_behavior_complaint,fare_dispute,trip_cancellation_refund,True,True,True
+"@Uber_Support You ""responded"" over TWELVE HOURS too late.  And ur ""response"" just pointed me 2 another damn form. You still have ZERO customer service!",fare_dispute,True,general_inquiry,trip_safety_incident,general_inquiry,True,False,True
+HOW LONG DO I WAIT BEFORE YOUR SERVICE ACTUALLY FUCKING WORKS AND NOT CHARGE ME FOR STUPID SHIT @115873 https://t.co/ITVoiHL7BZ,fare_dispute,True,general_inquiry,fare_dispute,fare_dispute,True,True,True
+"👎 experience @115877 
+on-time ✔️
+correct order ✖️ (missing item)
+delivered to door ✖️ (said he couldn't come in b/c of other deliveries)
+pleasant courier (bonus) ✖️",driver_behavior_complaint,True,lost_item,trip_cancellation_refund,lost_item,True,True,True
+@115873 yall gave poor communication service &amp; unprofessional drives !! U need aa associate representatives call center ASAP!! I'm suing You,driver_behavior_complaint,True,driver_behavior_complaint,trip_cancellation_refund,driver_behavior_complaint,True,False,True
+"@Uber_Support I got my refund as uber credit.  Will I ever use user again,I'm doubtful after being Charged for cancellation by driver. Very Poor policy.",fare_dispute,True,fare_dispute,trip_cancellation_refund,trip_cancellation_refund,True,True,True
+@Uber_Support why charge money if your driver does not even receive my call and does a noshow for the trip??  #unfair,fare_dispute,True,trip_cancellation_refund,fare_dispute,trip_cancellation_refund,True,True,True
+Not been able to put my remarks. Pls help as app is asking for cancellation charge for driver not turned up.Pls help https://t.co/t3xxWqLnkc,fare_dispute,True,general_inquiry,fare_dispute,trip_cancellation_refund,True,True,True
+The saturation of @115873 drivers has really dropped the customer experience. Lost 25 min today because rider got lost and cannot follow GPS,driver_behavior_complaint,False,general_inquiry,driver_behavior_complaint,driver_behavior_complaint,True,False,False
+"@Uber_Support 
+Is this a valid promotion from uber? https://t.co/QiltcOyU81",account_payment_issue,False,general_inquiry,trip_safety_incident,general_inquiry,True,False,False
+"Hey @115873 after you failed to send me a car and then charged me for it, I walked 1 hr home. At least you didn’t sexually assault me. #leave",trip_safety_incident,True,trip_safety_incident,lost_item,fare_dispute,True,True,True
+@115873 your response is notgood enough.Why should I have had to get out a cab and order another because ur driver was shit. I expect a refund https://t.co/Y5SKLymVWu,trip_cancellation_refund,True,trip_cancellation_refund,trip_cancellation_refund,driver_behavior_complaint,True,False,True
+@Uber_Support are worst customer support team I have ever came across. 0 help,general_inquiry,True,general_inquiry,trip_safety_incident,general_inquiry,True,False,False
+@Uber_Support My ID and number is available in your app,account_payment_issue,True,general_inquiry,trip_safety_incident,account_payment_issue,True,False,False
+"@115873 hey, been a long time customer and want to sign up as a ride pass member, but can't find it on site. Can you direct me how to do so?",general_inquiry,False,general_inquiry,trip_cancellation_refund,general_inquiry,True,False,False
+@115877 and im not waiting 24hrs for someone to read my feedback. Someone can get back to me right now with my refund or food. And ebrahim needs sacking. I spoke to McDonald’s they asked him to wait for 1 more bag and he just left and he was bloody rude at the door,driver_behavior_complaint,True,driver_behavior_complaint,trip_cancellation_refund,trip_cancellation_refund,True,True,True
+@Uber_Support  the app had me pay for 2 Ubers on the same trip. Bc your it doesn't work. Help me with a refund,fare_dispute,True,trip_cancellation_refund,trip_cancellation_refund,fare_dispute,True,True,True
+Hey @115873 y dhould i pay extra money if i have to cancel the trip as u allocate n wait for 15 mins for 10 mins travel.Also u r charging high,fare_dispute,True,general_inquiry,trip_cancellation_refund,trip_cancellation_refund,True,True,True
+@Uber_Support hi! I left my phone in my uber but the ride was split and I don't have the driver's # - please help! I'm traveling currently!,lost_item,False,lost_item,lost_item,lost_item,True,True,False
+"@Uber_Support @115873 i'm vip. Why am i getting drivers 4,6? Tks",general_inquiry,False,general_inquiry,trip_safety_incident,general_inquiry,True,False,False
+Curious why there is not a way to report an unsafe driver while you are in an actual @115873,trip_safety_incident,True,trip_safety_incident,driver_behavior_complaint,trip_safety_incident,True,True,True
+"@115873 i'm joseph, we ride uber around 1pm from sm to pier 1,I forgot my phone inside d car, pls return, contact ds #09150290744",lost_item,False,lost_item,lost_item,lost_item,True,True,False
+"@Uber_Support You’ve already responded, but it was w/ canned responses and without consideration of my defense points. Should we try again?",account_payment_issue,True,general_inquiry,trip_safety_incident,general_inquiry,True,False,False
+"@Uber_Support Hey, I have left my phone in one of your cabs, how do I get it back?",lost_item,False,lost_item,lost_item,lost_item,True,True,False
+tn was very eventful... got stuck in elevator and had to call police to get us out and then our uber got in a car accident... all in 3 hours,trip_safety_incident,True,trip_safety_incident,driver_behavior_complaint,trip_safety_incident,True,True,True
+@Uber_Support ok wtf. I’ve reset my password. I still can’t log into the disabled-account webpage. So ridiculous.,account_payment_issue,True,account_payment_issue,trip_safety_incident,account_payment_issue,True,False,False
+@Uber_Support CAN YOU HELP ME,general_inquiry,True,general_inquiry,trip_safety_incident,general_inquiry,True,False,False
+Hey @115873 why are your password reset emails coming to me in Russian? 🙄 https://t.co/RwpnZShOqh,account_payment_issue,False,account_payment_issue,lost_item,account_payment_issue,True,False,False
+@115877 kind of disappointed. I've been on for over two hours waiting for a delivery. Nothing. 😑,driver_behavior_complaint,False,general_inquiry,trip_safety_incident,general_inquiry,True,False,False
+@115873 I keep getting the same driver in the mornings when I schedule a ride to work and I’m always late because they accept the ride and sit at home for another 10-15 min and if I cancel my ride I get charged for it. Please help,fare_dispute,True,fare_dispute,driver_behavior_complaint,trip_cancellation_refund,True,True,True
+@Uber_Support My driver took a route that was 3x longer than it should have been and charged for it. Please fix.,fare_dispute,True,fare_dispute,trip_safety_incident,driver_behavior_complaint,True,False,False
+@294181 @115873 @4018 You know? I hate that they think it's an app error. These people dunno my people.,fare_dispute,True,account_payment_issue,account_payment_issue,account_payment_issue,True,False,False
+@Uber_Support Still waiting for the revert...now top of it I have forgot my keys in one of the trip and driver has acknowledged that he has my keys but not returning it to me... have escalated to uber then they asked to contact driver only.. not sure who would be responsible if keys are misued https://t.co/KgYzCJcEGa,fare_dispute,True,lost_item,trip_safety_incident,lost_item,True,True,False
+@Uber_Support how do I fix a hacked account if I can’t change my password?,account_payment_issue,True,account_payment_issue,trip_safety_incident,account_payment_issue,True,False,False
+"@Uber_Support @Uber_Support I’ve done this twice now and got the same reply: “your order was cancelled”. Sort it out, this is disgusting.",driver_behavior_complaint,True,general_inquiry,trip_cancellation_refund,trip_cancellation_refund,True,True,True
+"@Uber_Support dears, I have an issue about an deactivated account, due an removal of a phone number, can you help, please?",account_payment_issue,False,general_inquiry,lost_item,account_payment_issue,True,False,False
+My uber driver is driving reckless asl I’m CAR SICK,trip_safety_incident,True,trip_safety_incident,trip_safety_incident,trip_safety_incident,True,True,True
+@115873 I left my phone in my uber and I don't see information for help. #help,lost_item,False,lost_item,lost_item,lost_item,True,True,False
+"@115873 
+Uber app said it would be one price, then driver got lost and charged me more",fare_dispute,True,fare_dispute,fare_dispute,fare_dispute,True,True,True
+@Uber_Support Please help! Ive left my phone in a car! What do i do?,lost_item,False,lost_item,lost_item,lost_item,True,True,False
+@Uber_Support Literally over an hour. And I got charged a cancellation fee. Wtf.,fare_dispute,True,fare_dispute,fare_dispute,trip_cancellation_refund,True,True,True
+@Uber_Support I'm having another issue receiving a cancellation fee for a pool ride where the rider did not show up and I followed protocol,fare_dispute,True,fare_dispute,trip_cancellation_refund,trip_cancellation_refund,True,True,True
+I left my phone today @115873  10.55.I m tryn 2 contct uber but dy r syng dy also can't reach to the driver.Isn't it a security issue?@48475,lost_item,False,lost_item,lost_item,lost_item,True,True,True
+@115873 booked a pool drive on 02/12/17cancelled by driver from his side but still outstanding showing from my side y should I pay for this,fare_dispute,True,general_inquiry,trip_cancellation_refund,trip_cancellation_refund,True,True,True
+@Uber_Support help i just got out of my uber and left my wallet. Not from here. I have nothing no id no credit cards nothing,lost_item,False,lost_item,lost_item,lost_item,True,True,True
+@Uber_Support Contact me 9700941981,general_inquiry,True,general_inquiry,trip_safety_incident,general_inquiry,True,False,False
+"@115873 Hi, I have been sending messages to uber support and don't receive any response, can you please help me!, thank you!!!!!",general_inquiry,True,general_inquiry,trip_safety_incident,general_inquiry,True,False,False
+In 2 days I've been made to get out of a cab twice midway as the driver refused to go to Delhi from Gurgaon. Hello @115873 @Uber_Support @1285 wassup with rude and unprofessional drivers??!,driver_behavior_complaint,False,driver_behavior_complaint,driver_behavior_complaint,driver_behavior_complaint,True,False,True
+"@Uber_Support Your drivers are completely unprofessionals. Once we book the uber, they are asking us to cancel the trip as they did not want to go to that particular place. The same thing happened to me three times in a single day. Completely unsatisfied with the services",driver_behavior_complaint,False,general_inquiry,trip_safety_incident,driver_behavior_complaint,True,False,False
+Very disappointed in @115873 Ride scheduled 4 tomorrow showed up today &amp; I was charged. Still home in NYS NOT @ Nashville Airport!,fare_dispute,True,fare_dispute,trip_cancellation_refund,trip_cancellation_refund,True,True,True
+@Uber_Support I am absolutely sick of getting bad attitude of your Manchester drivers who do they think they are ????!!! Furious,driver_behavior_complaint,True,driver_behavior_complaint,trip_safety_incident,driver_behavior_complaint,True,False,False
+I need a private jet. I’m over this driving shit. When are those @115873 flying cars coming out?!?,general_inquiry,False,general_inquiry,trip_safety_incident,general_inquiry,True,False,False
+Once again @115873 is charging me for a driver who never showed up. Impossible to get a ride in city cuz GPS fails. https://t.co/osbHjDB3uY,fare_dispute,True,trip_cancellation_refund,trip_cancellation_refund,trip_cancellation_refund,True,True,True
+"@Uber_Support Hey, I have sent this msg on 29th Sept and I got this reply but I didn't get refund. https://t.co/nP11UiK5Ef",fare_dispute,True,trip_cancellation_refund,trip_cancellation_refund,trip_cancellation_refund,True,True,True
+@115873 Uber Partners in South Africa are getting a raw deal. We don't know if we are operating illegally or what. I just had an accident and my insurance refused paying saying I don't have an operating licence. How can you help?,trip_safety_incident,True,trip_safety_incident,fare_dispute,general_inquiry,True,False,True
+"@Uber_Support I left my phone in an uber last night, have located the car through tracking, need to get hold of driver, help x",lost_item,False,lost_item,lost_item,lost_item,True,True,False
+@115873 ..im being overcharged for a ride that I got a price for.. HELP!!!,fare_dispute,True,general_inquiry,fare_dispute,fare_dispute,True,True,True
+"@115873 @Uber_Support 
+Really upset by not getting refund from uber for my non cash trip where driver Syed asked me for cash payment as he had not started the trip. Later on uber charged me also for the trip which was not started by its driver. Not getting refund from uber.",fare_dispute,True,fare_dispute,trip_cancellation_refund,trip_cancellation_refund,True,True,True
+@115877 get it together! Miss an item in my order then charge me delivery fee again to bring the missing item?!,fare_dispute,True,lost_item,lost_item,fare_dispute,True,True,True
+"Driver refused to pull into driveway. Asked why he said ""you ordered UberX not limo."" Looks bad on @115873 https://t.co/fnnsQTWNsH",driver_behavior_complaint,False,driver_behavior_complaint,driver_behavior_complaint,driver_behavior_complaint,True,False,False
+"@115873 Due to use of cell phone my driver had a sever  accident in which my 6year old boy get hurt .
+Now he is scared to sit in any car .",trip_safety_incident,True,trip_safety_incident,trip_safety_incident,trip_safety_incident,True,True,True
+@12857 Enable surge in Las Vegas again please. Still need to make a living here...,general_inquiry,False,fare_dispute,trip_safety_incident,general_inquiry,True,False,False
+"@Uber_Support hi , i want 2 change rating of driver. By mistake gave 1 star instead of 5. How do i change it ?",general_inquiry,False,general_inquiry,trip_safety_incident,general_inquiry,True,False,False
+@Uber_Support HORRIBLE customer service. you just lost a customer,general_inquiry,True,general_inquiry,trip_safety_incident,general_inquiry,True,False,True
+@Uber_Support Drop done 150m from original destination. Charged 100 extra and that too in pool. Is development team fine? #Pathetic,fare_dispute,True,fare_dispute,trip_safety_incident,fare_dispute,True,True,True
+"@Uber_Support Hello, how could i schedule an airport trip via uber?",general_inquiry,False,general_inquiry,general_inquiry,general_inquiry,True,False,False
+@Uber_Support how does one know that their actual complaint is being processed? My Uber eats delivery was incorrect.,general_inquiry,False,general_inquiry,trip_cancellation_refund,general_inquiry,True,False,False
+How do you report a driver that wasn’t wearing a seatbelt and talking hands on the phone? @115873,trip_safety_incident,True,general_inquiry,trip_safety_incident,trip_safety_incident,True,True,True
+@Uber_Support Hello. I need payment statements with my name on it. I never realized the earnings summary doesn't have our names on it.,account_payment_issue,False,general_inquiry,trip_safety_incident,account_payment_issue,True,False,False
+@115873 why does it say oops something went wrong every time I request a ride? Is it because of the promo code?,account_payment_issue,False,account_payment_issue,account_payment_issue,account_payment_issue,True,False,False
+@115873 check out the behaviour of your drivers my friend. How rude. #Disgrace,driver_behavior_complaint,False,driver_behavior_complaint,driver_behavior_complaint,driver_behavior_complaint,True,False,False
+"@115877 so just ordered by accident to the wrong restaurant &amp; I can’t cancel or speak to a supervisor when I called, shame on you!! 😡😡😡😡😡",trip_cancellation_refund,True,trip_safety_incident,trip_cancellation_refund,trip_cancellation_refund,True,True,True
+@Uber_Support Awaiting a response to my DM,general_inquiry,False,general_inquiry,lost_item,general_inquiry,True,False,False
+@115873 hi Uber support team am try to report to head office even I try to login but it seem like someone in Los Angeles blocked me dnt let me to so I ask them how come I dnt get paid in my last checked and how come my fare rate it not the same like my friends my update is,account_payment_issue,True,account_payment_issue,fare_dispute,account_payment_issue,True,False,True
+@Uber_Support filled in form on your app 2 hours ago about accident getting out of car and am yet to hear anything from you...,trip_safety_incident,True,trip_safety_incident,trip_safety_incident,trip_safety_incident,True,True,True
+@115877 are pathetic half your meal turns up damaged and they think 99p refund is sufficient!!! Disgraceful customer service!!! 😡😡😡😡,fare_dispute,True,trip_cancellation_refund,trip_cancellation_refund,fare_dispute,True,True,True
+@Uber_Support hi i have a new phone and number i can’t locate the first time promo code for uber eats?,account_payment_issue,False,account_payment_issue,account_payment_issue,account_payment_issue,True,False,False
+"Never had a bad thing to say against @115873 until something bad happened to me.No accountability-denial of my problem no ""support"" &amp; no help!",general_inquiry,True,general_inquiry,trip_safety_incident,general_inquiry,True,False,False
+@115873 how do I complain about a driver who canceled a trip in an unprofessional way?,driver_behavior_complaint,False,driver_behavior_complaint,driver_behavior_complaint,driver_behavior_complaint,True,False,False
+"Almost got in a car accident with an @115873 car during Oktoberfest, they were taking a free right without checking across the street 1st!",trip_safety_incident,True,trip_safety_incident,fare_dispute,trip_safety_incident,True,True,True
+@115873 you really need to sort out the unprofessional drivers leaving clients standing at LHR!,driver_behavior_complaint,False,driver_behavior_complaint,lost_item,driver_behavior_complaint,True,False,False
+"@115873 I was wrongly charged for a cancellation fee. Tried to find a solution thru Support, but my option isn't offered. Please help.",fare_dispute,True,fare_dispute,trip_cancellation_refund,fare_dispute,True,True,True
+"@Uber_Support Well maybe if I could even log in, I’d be ok. I’m late for my haircut bro.",account_payment_issue,True,account_payment_issue,trip_safety_incident,account_payment_issue,True,False,False
+@115877 what's your radius? 3.2miles from a restaurant and it tells me im too far. Why?,general_inquiry,False,general_inquiry,trip_safety_incident,general_inquiry,True,False,False
+@115873 left my phone I️ think in a car but now my phone is off so I️ can’t login into Uber app to contact driver,lost_item,False,lost_item,lost_item,lost_item,True,True,False
+I was told my lost phone is at Uber HQ in Port Melbourne @Uber_Support so why is it 50km away in Mernda? This driver is a rude liar!!! https://t.co/fIXY696bSy,lost_item,True,driver_behavior_complaint,lost_item,lost_item,True,True,True
+"@115873   I haven't taken any ride the why it's unnecessary charged 25.53 rs. On Monday , driver cancelled my trip. https://t.co/C64MmVgFsA",fare_dispute,True,fare_dispute,fare_dispute,fare_dispute,True,True,True
+Soooo I’m in my @115873 on the way to work and we get in a car accident.,trip_safety_incident,True,trip_safety_incident,trip_safety_incident,trip_safety_incident,True,True,True
+"@Uber_Support 
+
+I used to be a driver, I decided to be a driver again, however my phone number has changed.  I can no longer login to update",account_payment_issue,False,account_payment_issue,trip_safety_incident,account_payment_issue,True,False,False
+@115873 I left my wallet in a car while using Uber and driver isn’t calling me back this is an emergency please help! I don’t even live here,lost_item,True,lost_item,lost_item,lost_item,True,True,True
+@Uber_Support I did. Still nothing. Can’t even reach anyone to cancel the order. I want a refund.,trip_cancellation_refund,True,trip_cancellation_refund,trip_cancellation_refund,trip_cancellation_refund,True,True,True
+@115877 remember the time my food was 20 mins late &amp; cold? But you said it wasn’t a valid concern for a refund or a reorder? #worstservice,fare_dispute,True,trip_cancellation_refund,trip_cancellation_refund,fare_dispute,True,True,True
+"@Uber_Support This is not about the driver. It's about your system! I cancelled hoping that I'd be assigned a different driver. Same driver was assigned. 
+My pickup and drop off location is not wrong.",driver_behavior_complaint,True,general_inquiry,trip_safety_incident,general_inquiry,True,False,False
+"@Uber_Support That link requires I provide a promo code, but my issue is that I never received one to begin with.",account_payment_issue,True,account_payment_issue,account_payment_issue,account_payment_issue,True,False,False
+@115877 it’s ridiculous that my delivery guy canceled my order because  it was “taking to long” and I can’t complain about it anywhere.,driver_behavior_complaint,False,general_inquiry,trip_cancellation_refund,driver_behavior_complaint,True,False,False
+"@Uber_Support Do not contact me if you are going to keep lying to me abt my refund. For the 10th time, I don’t want credits! 1 of 2",driver_behavior_complaint,False,trip_cancellation_refund,trip_cancellation_refund,trip_cancellation_refund,True,True,True
+"@Uber_Support 
+Very poor service offered by u today not getting single cab ...this is the way you deal with customers..shame on you",general_inquiry,False,general_inquiry,trip_safety_incident,driver_behavior_complaint,True,False,False
+Fuck @115873. I had a driver sexually harass me and they don’t give shit.,driver_behavior_complaint,True,trip_safety_incident,trip_safety_incident,trip_safety_incident,True,True,True
+Why do #UberEATS drivers refused to follow their GPS?! I had to call dude cause he was going the wrong way TWICE. Smh 🙄,driver_behavior_complaint,False,driver_behavior_complaint,trip_safety_incident,driver_behavior_complaint,True,False,False
+@Uber_Support already have! It’s been disregarded completely. Lucky for you I’m a freelancer so I got time to fight this :),fare_dispute,True,general_inquiry,trip_safety_incident,fare_dispute,True,True,True
+@Uber_Support the driver cancelled on me when the message said he was arriving. I went outside he cancelled almost made me miss my flight,fare_dispute,True,driver_behavior_complaint,trip_safety_incident,trip_cancellation_refund,True,True,True
+@Uber_Support I have changed my city and i am still getting promo codes of uber in the other city that doesnt apply in the new city. HELP!!,account_payment_issue,False,general_inquiry,account_payment_issue,account_payment_issue,True,False,False
+@Uber_Support You can’t send a simple link to change the password. Unfortunate! It’s ridiculous!!!,account_payment_issue,True,account_payment_issue,trip_safety_incident,account_payment_issue,True,False,False
+.@115873 driver gets a one star for driving into oncoming traffic tonight 😑 I know it was an accident but accidents kill,trip_safety_incident,True,trip_safety_incident,trip_safety_incident,trip_safety_incident,True,True,True
+@Uber_Support Your website says it will show up as credit in the Payments area. It refused to let me check out until I chose a payment method,account_payment_issue,True,driver_behavior_complaint,trip_safety_incident,account_payment_issue,True,False,False
+@115873 can you do something about your reckless drivers? IL plate Q19-8054 in Chicago almost ran over 3 cyclists the morning.,trip_safety_incident,True,trip_safety_incident,trip_safety_incident,trip_safety_incident,True,True,True
+"@Uber_Support I just got billed for a ride that I didn't take, twice. Same driver.",fare_dispute,True,fare_dispute,trip_safety_incident,fare_dispute,True,True,True
+"@115873 what the fuck happen to you login function in your app? Can’t login, only create an account. #iOS",account_payment_issue,True,account_payment_issue,account_payment_issue,account_payment_issue,True,False,True
+"tell me how @115873 deactivated my account for no damn reason, reactivated this morning, and I still can't log in ?? :(",account_payment_issue,True,account_payment_issue,lost_item,account_payment_issue,True,False,False
+@Uber_Support need your help. Lost phone in cab in Mexico city. Have license plate. But no number to call. Can you help before phone battery runs out?,lost_item,False,general_inquiry,lost_item,lost_item,True,True,False
+Having the worst uber experience in lifeeeee rn 😡😡😡 @Uber_Support,general_inquiry,True,general_inquiry,trip_safety_incident,general_inquiry,True,False,True
+"@Uber_Support 
+
+Hello I need help I lost my dog and people around the incident told me that a guy of ubereats took it 
+
+This happened in puebla Mexico today about an hour ago",trip_safety_incident,True,lost_item,lost_item,lost_item,True,True,False
+"Ran around like a headless chicken to get ready, only to watch your @115873 car reverse away from your house on the wee map. #2017Life",driver_behavior_complaint,False,general_inquiry,trip_safety_incident,driver_behavior_complaint,True,False,False
+How do I get hold of @115873 I have been charged for nothing,fare_dispute,True,fare_dispute,trip_cancellation_refund,fare_dispute,True,True,True
+@Uber_Support in no way could the meal have already been made. Now I have a meal I don't want because of an accident,trip_cancellation_refund,True,trip_safety_incident,trip_safety_incident,general_inquiry,True,False,False
+@Uber_Support thanks again for the credit - I used it on my ride this past Friday!,fare_dispute,True,general_inquiry,trip_safety_incident,general_inquiry,True,False,False
+"@115873 @Uber_Support plz refund my money as driver demanded extra 50 rs for the trip, he cancelled trip when I refused to pay more https://t.co/T7r1C2jD6k",fare_dispute,True,driver_behavior_complaint,trip_cancellation_refund,fare_dispute,True,True,True
+@Uber_Support almost 2 1/2 weeks later &amp; still no refund. Trash company. Even giving my bank the run around. Deleting app,fare_dispute,True,trip_cancellation_refund,trip_cancellation_refund,trip_cancellation_refund,True,True,True
+@115877 Every time I try to order it says error bad rider request pls help,account_payment_issue,False,general_inquiry,trip_cancellation_refund,account_payment_issue,True,False,False
+"I am upset with @115873 drivers I was charged $44 for a $5 ride, because of the mistake of a driver. I was taken into NYC and stuck in traffic",fare_dispute,True,fare_dispute,fare_dispute,fare_dispute,True,True,True
+@Uber_Support @433573 Beware! Uber says they issue credit when they really don’t! Dm me 4 promo code for #lyft,fare_dispute,True,account_payment_issue,trip_safety_incident,trip_cancellation_refund,True,True,True
+"@Uber_Support ALSO, forgot to add the time the driver picked me up from newark airport at 1am and refused to take me to my destination in NYC bc the app was glitching. HE dropped my off on the side of a DANGEROUS highway in A DANGEROUS PART OF BUMBLEFUCK NJ @ 1:30am with two huge suitcases",trip_safety_incident,True,trip_safety_incident,trip_safety_incident,trip_safety_incident,True,True,True
+"My @115877 driver just verbally judged me for a 3:30am order. Yeah, it’s late, but I just worked a late event I barely ate at. Rude.",driver_behavior_complaint,False,driver_behavior_complaint,driver_behavior_complaint,driver_behavior_complaint,True,False,False
+2 drivers rudely refused to drive. Back 2 back booking. Forced me to cancel else would drain my Paytm. Worst service evr. #uber #uberindia,driver_behavior_complaint,False,driver_behavior_complaint,trip_cancellation_refund,driver_behavior_complaint,True,False,True
+@Uber_Support I seem to have paid twice for the same trip how do i get a refund?,fare_dispute,True,trip_cancellation_refund,trip_cancellation_refund,fare_dispute,True,True,True
+"@Uber_Support my mobile phone is lost in cab. Last drop was at marwah studios film city noida at 15:04.
+Name of the driver is - vikal",lost_item,False,general_inquiry,lost_item,lost_item,True,True,False
+@Uber_Support It doesn’t take an hour for your guys to say you received my email.  I only emailed after I DM’d you guys here because you are very unresponsive #dobetter,general_inquiry,True,general_inquiry,trip_safety_incident,general_inquiry,True,False,False
+@Uber_Support DM sent. Please respond quickly. Charges are racking up.,account_payment_issue,True,general_inquiry,trip_safety_incident,fare_dispute,True,True,True
+@Uber_Support I would like to go online please. Approve me.,account_payment_issue,False,general_inquiry,trip_safety_incident,general_inquiry,True,False,False
+@Uber_Support Hello I am an uber user but today I got a really bad experience. How can the driver be so rude to a customer? I ended up cancelling the ride yet he was so near as he was saying that I should wait for an hour. This is tarnishing the reputation for sure😑😑😑😑😑😑,driver_behavior_complaint,False,driver_behavior_complaint,driver_behavior_complaint,driver_behavior_complaint,True,False,False
+@115873 your driver made me wait half an hour and cancelled as soon as I boarded the cab. His name is sultan. Moreover the driver “sultan” wasn’t driving the vehicle. Highly unsafe.,trip_safety_incident,True,trip_safety_incident,driver_behavior_complaint,trip_safety_incident,True,True,True
+@Uber_Support this is about the time sensitive retrieval of a government document. It has been over 2 hours now without having heard back from anyone. What if the driver becomes unreachable at that time? The function in-app to contact the driver directly causes my app to crash,lost_item,True,trip_safety_incident,trip_safety_incident,driver_behavior_complaint,True,False,True
+"@115873 My friend and I currently have a driver that is rude, ignoring us, and claims his app stopped working AFTER he picked us up and we are in the car, and is contemplating still taking us to our destination or not as he drives.",trip_safety_incident,True,driver_behavior_complaint,driver_behavior_complaint,driver_behavior_complaint,True,False,False
+"@Uber_Support promo code Octuber was rejected. Tried thrice. can not use code. Please help.
+Kamlesh Mehta. MUMBAI
+9323067836",account_payment_issue,False,account_payment_issue,account_payment_issue,account_payment_issue,True,False,False
+Major @115873 fail. Driver showed up. Knew my name and address. Wrong license plate. I refused to get in. Ten minutes later the right #uber arrives but by then I’ve left. #scary #unsafe #amonlyusingblackcabsnow,trip_safety_incident,True,trip_safety_incident,lost_item,trip_safety_incident,True,True,True
+"@Uber_Support Its not working as I never used my account from the app, I used Google maps.",fare_dispute,True,general_inquiry,trip_safety_incident,account_payment_issue,True,False,False
+@Uber_Support Just give me a full refund. Your service is pathetic.,fare_dispute,True,trip_cancellation_refund,trip_safety_incident,fare_dispute,True,True,True
+Ubereats driver forgot my ranch what do I do,general_inquiry,False,lost_item,lost_item,lost_item,True,True,False
+@Uber_Support been charged 3 cancellation fees this evening when the drivers cancelled the trips what on earth????,fare_dispute,True,fare_dispute,fare_dispute,trip_cancellation_refund,True,True,True
+Till 32 minutes he told me he is filling CNG REFUND ME https://t.co/efR1P2XAYu,trip_cancellation_refund,True,trip_cancellation_refund,trip_cancellation_refund,fare_dispute,True,True,True
+Got locked out my Account you guys suck Balls @115873,account_payment_issue,True,general_inquiry,trip_cancellation_refund,account_payment_issue,True,False,True
+@422638 there’s no option to request the @422723 ride. Trying for an hour. Now I’m trying not to cry. Help.,account_payment_issue,True,general_inquiry,trip_cancellation_refund,general_inquiry,True,False,True
+"Guys, @119983 @115873! Left my phone in the cab. Driver is not picking up my calls now. What should I do?",lost_item,False,lost_item,lost_item,lost_item,True,True,False
+@Uber_Support Please send me a private message. I hope to reply as soon as possible 🌹👍🏼,general_inquiry,False,general_inquiry,trip_safety_incident,general_inquiry,True,False,False
+"Seriously, goin to have to delete @115873,just saw my receipt I was show it would be $28.39 and got charged double,he use the wrong route 😡 https://t.co/Hj44ecnsJ2",fare_dispute,True,fare_dispute,fare_dispute,fare_dispute,True,True,True
+@115873 @Uber_Support can't apply promo code..plz help.. https://t.co/5dSFFuiXiT,account_payment_issue,False,account_payment_issue,account_payment_issue,account_payment_issue,True,False,False
+"@Uber_Support Yes i got your DM two days back, but no solution till today..@Uber_Support @115873 refund my money immediately",fare_dispute,True,trip_cancellation_refund,trip_safety_incident,fare_dispute,True,True,True
+@Uber_Support This is not the first time youve neglected to respond to my reports of a dangerous driver. I shouldnt have to get your attention on twitter.,trip_safety_incident,True,trip_safety_incident,trip_safety_incident,trip_safety_incident,True,True,True
+"@Uber_Support Thanks for quick response.. Got back the credit! Kindly look after such GPS error in Fare Calculations, Happening too often.",fare_dispute,True,general_inquiry,trip_safety_incident,fare_dispute,True,True,False
+@Uber_Support @115877 you haven’t “reached out”. Please refund the cost of the inedible food without delay,fare_dispute,True,trip_cancellation_refund,lost_item,fare_dispute,True,True,True
+@Uber_Support Actually I am unable to login from past six months using ola due to that .. but I can't even remember last two trips .. __email__,account_payment_issue,True,account_payment_issue,trip_safety_incident,account_payment_issue,True,False,False
+"@Uber_Support Done and you can refund my fare, what if he had crashed!!",trip_safety_incident,True,trip_cancellation_refund,trip_cancellation_refund,trip_cancellation_refund,True,True,True
+"@Uber_Support I already dm y'all about 30 mins ago, check it out it is long and detailed.",general_inquiry,False,general_inquiry,trip_safety_incident,general_inquiry,True,False,False
+@Uber_Support hi I’m getting very annoyed with not getting a response please can someone reply to my message it is not resolved,general_inquiry,True,general_inquiry,trip_safety_incident,general_inquiry,True,False,False
+"@Uber_Support Hi, how can I get in touch with Uber's Peru support? I am on a trip right now and I will be charged a cancellation fee that supposedly doesn't exist. Thanks",fare_dispute,True,fare_dispute,fare_dispute,fare_dispute,True,True,True
+"@115873 refund me, fire your driver",fare_dispute,True,trip_cancellation_refund,trip_cancellation_refund,trip_cancellation_refund,True,True,True
+@115873 i sent you a request thing online. you all charged me incorrectly. some help fixing this situation would be much appreciated 🙃,fare_dispute,True,fare_dispute,trip_cancellation_refund,fare_dispute,True,True,True

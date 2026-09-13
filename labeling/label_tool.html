@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Golden Set Labeling Tool</title>
+<style>
+  :root { --bg:#0f1115; --card:#1a1d24; --accent:#5b8def; --good:#2fa876; --bad:#e15b5b; --muted:#8a8f9c; }
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, Helvetica, Arial, sans-serif; background: var(--bg); color: #eee; margin:0; padding:24px; }
+  .wrap { max-width: 820px; margin: 0 auto; }
+  h1 { font-size: 18px; color: var(--muted); font-weight: 500; }
+  .progress { color: var(--muted); font-size: 13px; margin-bottom: 16px; }
+  .card { background: var(--card); border-radius: 12px; padding: 20px 24px; margin-bottom: 16px; }
+  .context { color: var(--muted); font-size: 13px; white-space: pre-wrap; margin-bottom: 10px; border-left: 2px solid #333; padding-left: 10px;}
+  .tweet { font-size: 17px; line-height: 1.5; margin-bottom: 18px; }
+  .section-title { font-size: 12px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); margin: 14px 0 6px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { padding: 7px 12px; border-radius: 20px; border: 1px solid #333; background: #22262f; color: #ddd; cursor: pointer; font-size: 13px; }
+  .chip.selected { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .chip.suggested:not(.selected) { border-color: var(--accent); color: var(--accent); }
+  .escrow { display: flex; gap: 10px; margin-top: 6px; }
+  .escbtn { flex:1; padding: 10px; border-radius: 8px; border: 1px solid #333; background:#22262f; cursor:pointer; text-align:center; font-size:13px;}
+  .escbtn.selected.yes { background: var(--bad); border-color: var(--bad); }
+  .escbtn.selected.no { background: var(--good); border-color: var(--good); }
+  textarea { width: 100%; background: #22262f; border: 1px solid #333; border-radius: 8px; color: #eee; padding: 10px; font-size: 13px; min-height: 50px; margin-top: 4px;}
+  .suggestion-box { background: #14161c; border: 1px dashed #333; border-radius: 8px; padding: 10px 12px; font-size: 12px; color: var(--muted); margin-top: 10px;}
+  .controls { display:flex; justify-content: space-between; align-items:center; margin-top: 18px; }
+  button.nav { background: var(--accent); border:none; color:#fff; padding: 10px 20px; border-radius: 8px; cursor:pointer; font-size: 14px;}
+  button.nav:disabled { opacity: .3; cursor:not-allowed;}
+  .hint { color: var(--muted); font-size: 12px; }
+  .exportbar { margin-top: 20px; text-align:center; }
+  .exportbar button { background: var(--good); color:#fff; border:none; padding:10px 18px; border-radius:8px; cursor:pointer; font-size:14px;}
+  input[type=file] { color: var(--muted); font-size: 13px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Golden Set Labeling — load <code>labeling_batch.json</code> to start</h1>
+  <input type="file" id="fileInput" accept=".json">
+  <div id="app" style="display:none">
+    <div class="progress" id="progress"></div>
+    <div class="card">
+      <div class="context" id="context"></div>
+      <div class="tweet" id="tweetText"></div>
+
+      <div class="section-title">Intent (click or press 1-7)</div>
+      <div class="chips" id="intentChips"></div>
+
+      <div class="section-title">Escalate to human?</div>
+      <div class="escrow">
+        <div class="escbtn" id="escYes" onclick="setEscalate(true)">Escalate (E)</div>
+        <div class="escbtn" id="escNo" onclick="setEscalate(false)">Auto-handle (A)</div>
+      </div>
+      <textarea id="reasonBox" placeholder="Escalation / auto-handle reason (edit or accept suggested)"></textarea>
+
+      <div class="section-title">Reply quality gold note (optional — only for reply-quality subset)</div>
+      <textarea id="qualityNote" placeholder="What would a GOOD reply need to say here? (leave blank if not in reply-quality subset)"></textarea>
+
+      <div class="suggestion-box" id="suggestionBox"></div>
+    </div>
+    <div class="controls">
+      <button class="nav" onclick="prev()">&larr; Prev</button>
+      <span class="hint">Keys: 1-7 = intent, E/A = escalate, Enter = accept &amp; next, &larr;/&rarr; = navigate</span>
+      <button class="nav" onclick="next()">Next &rarr;</button>
+    </div>
+    <div class="exportbar"><button onclick="exportLabels()">Export labeling_output.json</button></div>
+  </div>
+</div>
+
+<script>
+const INTENTS = [
+  "trip_safety_incident","fare_dispute","lost_item",
+  "driver_behavior_complaint","account_payment_issue",
+  "trip_cancellation_refund","general_inquiry"
+];
+
+let batch = [];
+let labels = {}; // index -> {intent, escalate, reason, qualityNote}
+let idx = 0;
+
+document.getElementById('fileInput').addEventListener('change', e => {
+  const file = e.target.files[0];
+  const reader = new FileReader();
+  reader.onload = evt => {
+    batch = JSON.parse(evt.target.result);
+    document.getElementById('app').style.display = 'block';
+    renderCard();
+  };
+  reader.readAsText(file);
+});
+
+function renderCard() {
+  const item = batch[idx];
+  document.getElementById('progress').textContent = `Item ${idx+1} / ${batch.length}`;
+  document.getElementById('context').textContent = (item.context || []).join('\n---\n');
+  document.getElementById('tweetText').textContent = item.text;
+
+  const chipsDiv = document.getElementById('intentChips');
+  chipsDiv.innerHTML = '';
+  const sug = item.suggested || {};
+  const current = labels[idx] || {
+    intent: sug.intent, escalate: sug.escalate,
+    reason: sug.escalation_reason || '', qualityNote: ''
+  };
+  labels[idx] = current;
+
+  INTENTS.forEach((name, i) => {
+    const chip = document.createElement('div');
+    chip.className = 'chip' + (name === current.intent ? ' selected' : '') +
+                      (name === sug.intent ? ' suggested' : '');
+    chip.textContent = `${i+1}. ${name}`;
+    chip.onclick = () => { current.intent = name; renderCard(); };
+    chipsDiv.appendChild(chip);
+  });
+
+  document.getElementById('escYes').className = 'escbtn' + (current.escalate === true ? ' selected yes' : '');
+  document.getElementById('escNo').className = 'escbtn' + (current.escalate === false ? ' selected no' : '');
+  document.getElementById('reasonBox').value = current.reason;
+  document.getElementById('qualityNote').value = current.qualityNote || '';
+
+  document.getElementById('suggestionBox').innerHTML = sug.intent
+    ? `<b>LLM suggested:</b> intent=${sug.intent}, escalate=${sug.escalate}, reason="${sug.escalation_reason}"` +
+    (sug.is_edge_case ? `<br><b>Flagged as edge case:</b> ${sug.edge_case_reason}` : '')
+    : `<i>No pre-suggestion for this item — label it from scratch.</i>`;
+
+function setEscalate(val) {
+  labels[idx].escalate = val;
+  renderCard();
+}
+
+document.getElementById('reasonBox').addEventListener('input', e => { labels[idx].reason = e.target.value; });
+document.getElementById('qualityNote').addEventListener('input', e => { labels[idx].qualityNote = e.target.value; });
+
+function next() { if (idx < batch.length - 1) { idx++; renderCard(); } }
+function prev() { if (idx > 0) { idx--; renderCard(); } }
+
+document.addEventListener('keydown', e => {
+  if (document.activeElement.tagName === 'TEXTAREA') return; // don't hijack typing
+  if (e.key >= '1' && e.key <= '7') { labels[idx].intent = INTENTS[parseInt(e.key)-1]; renderCard(); }
+  if (e.key.toLowerCase() === 'e') setEscalate(true);
+  if (e.key.toLowerCase() === 'a') setEscalate(false);
+  if (e.key === 'ArrowRight' || e.key === 'Enter') next();
+  if (e.key === 'ArrowLeft') prev();
+});
+
+function exportLabels() {
+  const out = batch.map((item, i) => ({
+    thread_id: item.thread_id,
+    turn_index: item.turn_index,
+    text: item.text,
+    context: item.context,
+    human_intent: labels[i]?.intent,
+    human_escalate: labels[i]?.escalate,
+    human_reason: labels[i]?.reason,
+    reply_quality_note: labels[i]?.qualityNote || "",
+    llm_suggested: item.suggested,
+    overridden_intent: labels[i]?.intent !== item.suggested?.intent,
+    overridden_escalate: labels[i]?.escalate !== item.suggested?.escalate,
+  }));
+  const blob = new Blob([JSON.stringify(out, null, 2)], {type: 'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'labeling_output.json';
+  a.click();
+}
+</script>
+</body>
+</html>

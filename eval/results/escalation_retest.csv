@@ -1,0 +1,35 @@
+text,old_intent,new_intent,old_escalate,new_escalate,new_reasons
+@Uber_Support what a joke,account_payment_issue,driver_behavior_complaint,False,True,Message shows strong distress or abusive/extreme language.
+@Uber_Support are worst customer support team I have ever came across. 0 help,general_inquiry,general_inquiry,False,True,Message shows strong distress or abusive/extreme language.
+@Uber_Support My ID and number is available in your app,account_payment_issue,general_inquiry,False,False,Intent 'general_inquiry' is auto-handleable and no risk rule fired.
+"@Uber_Support You’ve already responded, but it was w/ canned responses and without consideration of my defense points. Should we try again?",general_inquiry,general_inquiry,False,True,Message shows strong distress or abusive/extreme language.
+@Uber_Support ok wtf. I’ve reset my password. I still can’t log into the disabled-account webpage. So ridiculous.,account_payment_issue,account_payment_issue,False,True,Message shows strong distress or abusive/extreme language.
+@Uber_Support CAN YOU HELP ME,general_inquiry,general_inquiry,False,True,Message shows strong distress or abusive/extreme language.
+@Uber_Support My driver took a route that was 3x longer than it should have been and charged for it. Please fix.,driver_behavior_complaint,fare_dispute,False,True,Customer disputes a specific charge or requests a refund.; Message shows strong distress or abusive/extreme language.
+@294181 @115873 @4018 You know? I hate that they think it's an app error. These people dunno my people.,account_payment_issue,account_payment_issue,False,True,Message shows strong distress or abusive/extreme language.
+@Uber_Support Still waiting for the revert...now top of it I have forgot my keys in one of the trip and driver has acknowledged that he has my keys but not returning it to me... have escalated to uber then they asked to contact driver only.. not sure who would be responsible if keys are misued https://t.co/KgYzCJcEGa,lost_item,lost_item,False,True,Message shows strong distress or abusive/extreme language.
+@Uber_Support how do I fix a hacked account if I can’t change my password?,account_payment_issue,account_payment_issue,False,False,Intent 'account_payment_issue' is auto-handleable and no risk rule fired.
+@Uber_Support Contact me 9700941981,general_inquiry,general_inquiry,False,False,Intent 'general_inquiry' is auto-handleable and no risk rule fired.
+"@115873 Hi, I have been sending messages to uber support and don't receive any response, can you please help me!, thank you!!!!!",general_inquiry,general_inquiry,False,True,Message shows strong distress or abusive/extreme language.
+@Uber_Support I am absolutely sick of getting bad attitude of your Manchester drivers who do they think they are ????!!! Furious,driver_behavior_complaint,driver_behavior_complaint,False,True,Message shows strong distress or abusive/extreme language.
+"Never had a bad thing to say against @115873 until something bad happened to me.No accountability-denial of my problem no ""support"" &amp; no help!",general_inquiry,general_inquiry,False,True,Message shows strong distress or abusive/extreme language.
+"@Uber_Support Well maybe if I could even log in, I’d be ok. I’m late for my haircut bro.",account_payment_issue,account_payment_issue,False,True,Message shows strong distress or abusive/extreme language.
+"@Uber_Support This is not about the driver. It's about your system! I cancelled hoping that I'd be assigned a different driver. Same driver was assigned. 
+My pickup and drop off location is not wrong.",general_inquiry,general_inquiry,False,True,Message shows strong distress or abusive/extreme language.
+"@Uber_Support That link requires I provide a promo code, but my issue is that I never received one to begin with.",account_payment_issue,account_payment_issue,False,True,Message shows strong distress or abusive/extreme language.
+@Uber_Support You can’t send a simple link to change the password. Unfortunate! It’s ridiculous!!!,account_payment_issue,account_payment_issue,False,True,Message shows strong distress or abusive/extreme language.
+@Uber_Support Your website says it will show up as credit in the Payments area. It refused to let me check out until I chose a payment method,account_payment_issue,account_payment_issue,False,False,Intent 'account_payment_issue' is auto-handleable and no risk rule fired.
+"tell me how @115873 deactivated my account for no damn reason, reactivated this morning, and I still can't log in ?? :(",account_payment_issue,account_payment_issue,False,True,Message shows strong distress or abusive/extreme language.
+"@Uber_Support 
+
+Hello I need help I lost my dog and people around the incident told me that a guy of ubereats took it 
+
+This happened in puebla Mexico today about an hour ago",lost_item,driver_behavior_complaint,False,True,"Message describes a safety incident (unsafe driving, accident, harassment, assault)."
+@Uber_Support in no way could the meal have already been made. Now I have a meal I don't want because of an accident,general_inquiry,general_inquiry,False,True,Message shows strong distress or abusive/extreme language.
+@Uber_Support thanks again for the credit - I used it on my ride this past Friday!,general_inquiry,general_inquiry,False,False,Intent 'general_inquiry' is auto-handleable and no risk rule fired.
+@Uber_Support It doesn’t take an hour for your guys to say you received my email.  I only emailed after I DM’d you guys here because you are very unresponsive #dobetter,general_inquiry,general_inquiry,False,True,Message shows strong distress or abusive/extreme language.
+"@115873 My friend and I currently have a driver that is rude, ignoring us, and claims his app stopped working AFTER he picked us up and we are in the car, and is contemplating still taking us to our destination or not as he drives.",driver_behavior_complaint,driver_behavior_complaint,False,False,Intent 'driver_behavior_complaint' is auto-handleable and no risk rule fired.
+"@Uber_Support Its not working as I never used my account from the app, I used Google maps.",account_payment_issue,account_payment_issue,False,False,Intent 'account_payment_issue' is auto-handleable and no risk rule fired.
+"@Uber_Support Thanks for quick response.. Got back the credit! Kindly look after such GPS error in Fare Calculations, Happening too often.",fare_dispute,fare_dispute,False,True,Customer disputes a specific charge or requests a refund.
+@Uber_Support Actually I am unable to login from past six months using ola due to that .. but I can't even remember last two trips .. __email__,account_payment_issue,account_payment_issue,False,True,Message shows strong distress or abusive/extreme language.
+@Uber_Support hi I’m getting very annoyed with not getting a response please can someone reply to my message it is not resolved,general_inquiry,general_inquiry,False,True,Message shows strong distress or abusive/extreme language.
