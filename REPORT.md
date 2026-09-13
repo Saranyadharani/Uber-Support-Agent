@@ -1,199 +1,227 @@
 # Report — Uber Support Agent
 
-*(Fill in bracketed [NUMBERS] after running `eval/run_eval.py` and
-`eval/judge_agreement.py` on your machine — everything else is drafted.)*
-
 ## 1. Problem framing
 
-**What "good" means for this brand.** Uber support on Twitter is high-volume
-and mostly low-stakes (account/FAQ questions), but contains a real minority
-of safety-critical and money-critical messages. "Good" for this agent means:
-(a) never silently auto-handle a safety incident or an explicit monetary
-dispute — recall on escalation for those categories matters far more than
-overall accuracy; (b) for auto-handled replies, be grounded in what Uber has
-actually said before rather than inventing policy; (c) be honest about
-uncertainty — an "I don't know, escalating" is strictly better than a
-confident wrong answer for this brand.
+For Uber support on Twitter, most incoming messages are low-stakes — account
+questions, FAQs — but a real minority are genuinely urgent: safety incidents,
+explicit refund disputes. "Good" for this agent means getting the stakes right
+more than getting every reply perfect. Concretely:
 
-**What I chose not to build.**
-- No fine-tuning of a classifier — with ~200 golden examples and a
-  well-specified taxonomy, prompted classification is more reliable and far
-  faster to iterate on than training a model, and it's a fair comparison
-  point against future work.
-- No multi-turn conversation *state machine* — the agent scores each new
-  customer message using thread context as input, not as a persistent
-  session; a real deployment would need this, but it's orthogonal to proving
-  classify/ground/escalate quality.
-- No live paraphrase-detection of duplicate/spam tweets — the raw dataset has
-  near-duplicate complaints; I didn't dedupe aggressively, which likely
-  inflates apparent example diversity somewhat (see §4).
-- No cost/latency optimization — every call goes through the same model
-  (`claude-sonnet-4-6`) for classification, reply, and judging. A production
-  system would likely use a cheaper/faster model for classification.
+- Never quietly auto-handle a safety incident or a specific monetary dispute.
+  Recall on escalation for those categories matters more than overall accuracy.
+- When auto-handling, ground the reply in what Uber has actually said before,
+  not an invented policy.
+- Prefer an honest "I don't know, escalating" over a confident wrong answer.
+
+**What I didn't build, on purpose:**
+- No fine-tuned classifier. With 180 golden examples and a taxonomy I wrote by
+  hand, prompted classification was faster to iterate on and gave a fairer
+  comparison against the baselines.
+- No real conversation state machine. The agent scores each new message using
+  thread context as input, not as a persistent session — a real deployment
+  would need this, but it's a separate problem from proving the core pipeline
+  works.
+- No dedup of near-identical spam/duplicate tweets in the raw data. I didn't
+  clean this aggressively, which probably inflates how "diverse" the dataset
+  looks.
+- No cost/latency tuning. Every call — classify, generate, judge — goes
+  through the same model. A production system would almost certainly use a
+  cheaper model for the high-volume classification step.
 
 ## 2. Results vs. baselines
 
-| | Intent accuracy | Intent macro-F1 | Escalation precision | Escalation recall | Escalation FN rate |
-|---|---|---|---|---|---|
-| Trivial (keyword intent, escalate-everything) | [X] | [X] | [X] | 1.00 | 0.00 |
-| Simple (kNN intent, intent-only escalation) | [X] | [X] | [X] | [X] | [X] |
-| System (LLM intent + rule-based escalation) | [X] | [X] | [X] | [X] | [X] |
+All numbers are from the full 180-item golden set (`eval/results/summary.json`).
 
-Reply quality (LLM judge, 1-5 mean): grounded=[X], safe=[X], actionable=[X], tone=[X], overall=[X]
+**Intent classification**
 
-Judge-human agreement (n=[X]): exact match [X]%, within ±1 point [X]%,
-linear-weighted Cohen's kappa = [X]. [X] cases disagreed by ≥2 points —
-see `eval/results/judged_replies.csv` cross-referenced with
-`eval/results/human_scoring_template.csv` for the specific examples.
+| | Accuracy | Macro F1 |
+|---|---|---|
+| Trivial (keyword rules) | 58.9% | 0.592 |
+| Simple (kNN over taxonomy examples) | 36.1% | 0.355 |
+| System (LLM) | **71.7%** | **0.698** |
 
-**Reading these numbers honestly:** the trivial "escalate everything"
-baseline gets perfect escalation recall by construction and should NOT be
-beaten on recall alone — the system needs to beat it on precision while
-keeping recall high, or it isn't actually adding value over "when in doubt,
-escalate."
+The kNN baseline being worse than plain keyword matching surprised me at
+first, but it makes sense — embedding similarity against a handful of
+hand-picked examples per intent is a weaker signal than explicit keyword
+rules when the categories overlap in vocabulary (e.g. "charged" shows up in
+both fare_dispute and trip_cancellation_refund examples).
 
-## 3. Failure analysis — top 5 failure modes
+**Escalation decision**
 
-*(Replace with your actual observed failures from `predictions.csv` /
-`judged_replies.csv` — these are the categories to look for, based on the
-taxonomy design, not fabricated examples.)*
+| | Precision | Recall | F1 | Missed (false negatives) |
+|---|---|---|---|---|
+| Trivial (escalate everything) | 0.633 | 1.000 | 0.776 | 0 |
+| Simple (intent-only) | 0.800 | 0.667 | 0.727 | 38 (33.3%) |
+| System (rule-based) | **0.944** | 0.746 | **0.833** | 29 (25.4%) |
 
-1. **Sarcasm misread as a different intent.** e.g. "wow great job charging me
-   for a ride I never took 👍" — keyword baseline and possibly the LLM
-   classifier can miss that this is a fare_dispute, not a compliment.
-   Hypothesis: sarcasm markers (emoji + positive words + negative context)
-   aren't explicitly modeled.
-2. **Multi-issue tweets get only the first-mentioned intent.** A tweet
-   combining a lost item AND a rude driver complaint may only trigger one
-   escalation rule. Hypothesis: single-label classification is a
-   simplification that under-serves compound complaints — the
-   `ambiguous_multi_issue` escalation rule is a stopgap, not a fix.
-3. **"Resolved" thread noise in the RAG corpus.** Some threads tagged
-   resolved (via the thank-you-phrase heuristic) are actually abandoned
-   conversations where the customer just stopped replying. Hypothesis: this
-   occasionally surfaces an unhelpful "example" reply to ground on.
-4. **Repeat-unresolved-contact detection is thread-local only.** The
-   `repeat_unresolved_contact` rule only looks within one thread; a customer
-   who tweets a NEW thread about the same underlying issue (common on
-   Twitter) won't trigger it. Hypothesis: under-escalates persistent
-   complainers.
-5. **Escalation reason wording can be generic.** The rule-based reasons
-   ("The tweet is trip_safety_incident...") are consistent but not
-   tailored to the specific tweet — a human agent reviewing the queue gets
-   less context than a free-text explanation would give, trading
-   auditability for specificity.
+The trivial baseline gets perfect recall by construction — that's not a real
+strategy, it's a reminder that recall alone isn't the bar. The system clearly
+wins on precision, but a 25.4% false-negative rate on escalation is a real
+weakness, not something to gloss over. See failure analysis below.
 
-## 4. "What is misleading about my headline number?"
+**Reply quality** (LLM judge, 1–5 scale, means over all system replies)
 
-- **Golden set is not a random sample of live traffic.** It's stratified
-  ~20/intent + oversampled edge cases, so headline accuracy is NOT the
-  accuracy you'd see on the raw incoming stream, which skews heavily toward
-  general_inquiry/account_payment_issue. A weighted accuracy by true
-  intent-frequency would likely look different (probably higher, since the
-  easy majority classes dominate real traffic).
-- **The LLM classifier's "signals" (safety/money/distress) feed directly into
-  the same model family used for the golden-set pre-labels.** Even though a
-  human reviewed and could override every pre-label, there's residual risk
-  that ambiguous cases got resolved in the direction the LLM already leaned,
-  understating true error rate on hard cases. The override rate (see
-  `labeling/export_golden_set.py` output) is the honest check on this — a low
-  override rate could mean either "the LLM is good" or "the human
-  rubber-stamped it."
-- **"Resolved" thread heuristic biases the RAG corpus and evaluation
-  alike.** Both the retrieval corpus and any downstream judgment of
-  "grounded in how the brand has resolved" quietly depend on a noisy
-  resolved/unresolved heuristic (thank-you phrase OR brand-had-last-word).
-  Brand-had-last-word is a weak proxy — it's true for most threads
-  regardless of actual resolution.
-- **LLM-judge and LLM-classifier share a training lineage.** Structural
-  blind spots the classifier has (certain phrasing, sarcasm, code-switching)
-  may be blind spots the judge shares, inflating quality scores on exactly
-  the inputs where the system is weakest. The human-agreement check
-  (§2) is the mitigation, but n=[X] is a small sample.
-- **Escalation false-negative rate is the number that matters most and is
-  also the noisiest**, since safety/legal-triggering tweets are rare even in
-  the oversampled edge-case bucket — a handful of missed cases move this
-  rate a lot. Treat the point estimate with wide error bars.
+| grounded | safe | actionable | tone | overall |
+|---|---|---|---|---|
+| 3.55 | 4.82 | 4.01 | 3.58 | 3.67 |
 
-## 5. What I'd do next with one more week
+Safety is high — the model rarely over-promises anything. Groundedness is the
+weakest axis, which lines up with what I flagged early on: Uber's real replies
+are fairly templated, so there's less for the retrieval step to meaningfully
+differentiate on.
 
-1. Expand the golden set to include intent-frequency-weighted sampling
-   (in addition to the stratified set) to get an honest "expected live
-   accuracy" number, not just a per-class one.
-2. Replace the thank-you-phrase resolution heuristic with a small
-   human-labeled sample used to validate/calibrate it, rather than trusting
-   it directly as ground truth for the RAG corpus.
-3. Add multi-label intent support for the ~[X]% of tweets flagged
-   `multi_issue`, instead of forcing single-label classification.
-4. Build a second, cheaper/faster model path for the classification step
-   (most of the traffic is easy) and reserve the larger model for
-   generation/judging — cost matters at Twitter-support scale.
-5. Run a larger judge-agreement study (n=100+) stratified by intent, since
-   the current n is likely too small to trust kappa per-intent.
+## 3. Judge-human agreement
 
-## 6. Decision log
+I hand-scored 40 of the system's drafted replies blind (without looking at the
+judge's score first), then compared.
 
-Plain list of non-obvious decisions and why:
+- Exact match: 32.5%
+- Within ±1 point: 82.5%
+- Linear-weighted Cohen's kappa: **-0.009**
 
-1. **Chose Uber over an airline** despite airlines having richer historical
-   resolution patterns, because Uber's safety-escalation boundary is just as
-   real and the brand is well-represented in the dataset; explicitly flagged
-   that Uber's replies are more templated, which limits how much retrieval
-   grounding can differentiate replies (see Problem Framing).
-2. **Hand-defined the intent taxonomy by open-coding ~120 tweets before
-   running any model**, rather than asking an LLM to propose categories from
-   scratch, to avoid the taxonomy itself being an artifact of the same model
-   being evaluated.
-3. **Escalation is rule-based on top of LLM-extracted signals, not decided
-   by the LLM directly** — so the decision is auditable in code and doesn't
-   silently drift between runs of the same prompt.
-4. **Used LLM-suggested labels as a first pass for the golden set, human
-   reviewed/overrode every one** — disclosed override rate as a transparency
-   metric rather than hiding the assistance.
-5. **"Resolved" is a heuristic (thank-you phrase OR brand-had-last-word),
-   not verified ground truth** — accepted as a known limitation rather than
-   manually verifying all threads, given time constraints; flagged
-   explicitly in §4 rather than presented as clean data.
-6. **Escalation false-negative rate is reported separately from F1**,
-   because for this brand a missed safety escalation is categorically worse
-   than an unnecessary one, and F1 alone would hide that asymmetry.
-7. **Reply-quality gold notes only collected for a subset (~40) of the
-   golden set, not all 200** — full free-text quality annotation for 200
-   examples wasn't a good time tradeoff versus getting broader intent/escalation
-   coverage; sized the subset to be enough for a meaningful judge-agreement
-   check instead.
-8. **Kept intent and escalation-signal extraction in ONE LLM call**
-   (`classify_llm.py`) rather than two, to cut latency/cost, accepting that
-   this couples the two tasks' error modes together.
-9. **Still draft a reply even when escalating**, but marked
-   `SUGGESTION_FOR_HUMAN_REVIEW` rather than `AUTO_SEND` — gives the human
-   agent a starting point without the system claiming it as final.
-10. **Randomized the labeling batch order** (not grouped by intent) to avoid
-    anchoring/fatigue bias where nearby similar examples get rubber-stamped
-    the same way.
-11. **Used a local embedding model (MiniLM) for retrieval/kNN baseline
-    instead of API embeddings** — no extra API cost or latency for what's a
-    supporting, not headline, component.
-12. **Trivial baseline is "escalate everything," not "escalate nothing"** —
-    chose the safer trivial baseline on purpose, since "escalate nothing" is
-    a strategy no real team would consider and comparing against it would be
-    a strawman.
-13. **Multi-issue detection is a boolean flag from the classifier, not a
-    separate multi-label classification pass** — cheaper, but likely
-    under-detects compound issues (see Failure Mode #2); flagged as
-    future work rather than solved.
-14. **Used Groq (Llama 3.3 70B) instead of a larger frontier model** for all
-    three LLM roles (classify, generate, judge) — free tier and low latency
-    made rapid iteration on the golden set realistic on a laptop; tradeoff is
-    a smaller/weaker model than a frontier option, which likely lowers the
-    ceiling on subtle cases (sarcasm, compound intents) relative to what a
-    larger model would catch. Worth re-running the eval with a stronger model
-    to see how much of the reported error rate is "hard problem" vs.
-    "model capacity" — noted as a natural ablation for next steps.
-15. **Did not use a separate, independent model family for the judge** —
-    the judge uses the same Groq model as the classifier/generator by
-    default (`JUDGE_MODEL = config.GROQ_MODEL` in `eval/llm_judge.py`, one
-    line to change). This is a known source of correlated blind spots
-    (see §4, "what's misleading") and is easy to fix by pointing
-    `JUDGE_MODEL` at a different provider/model if judge independence
-    turns out to matter after checking human-agreement numbers.
+That kappa number looks bad, and I want to be straightforward about it rather
+than bury it. Two things are going on. First, both my scores and the judge's
+cluster heavily in the 3–5 range, and kappa is known to behave badly (including
+going negative) with compressed, low-variance distributions like this — a
+handful of disagreements have outsized effect. Second, and more interesting,
+looking at the 7 cases with a 2+ point gap showed a real pattern: I gave
+higher scores to replies that were generic but functionally correct (e.g.
+"DM us your trip ID" for a straightforward lost-item request), while the judge
+penalized genericness more heavily even when the reply correctly solved the
+problem. We seem to be measuring somewhat different things — I was rewarding
+"does this work," the judge was rewarding "does this feel specific to what was
+said."
+
+I'd treat the judge's absolute scores as directional, not validated against
+human judgment, at this sample size. A larger re-scoring pass with a tighter,
+more explicit rubric (maybe splitting "correctness" from "specificity" into
+separate axes) would be needed before trusting this as ground truth.
+
+## 4. Failure analysis
+
+**1. Escalation misses skew toward passive/sarcastic frustration, not overt
+anger.** Looking at the 29 missed escalations, most weren't profanity-laden —
+things like "what a joke," "0 help," "CAN YOU HELP ME," "ZERO customer
+service!" The original distress signal in the prompt was tuned toward
+explicit anger/threats and missed curt, exhausted, or sarcastic phrasing.
+
+I tested a fix for this: broadened the distress-signal instruction in the
+classifier prompt to explicitly call out short/curt/sarcastic/exasperated
+phrasing, not just profanity. Re-running the same 29 previously-missed cases
+through the updated prompt (`eval/retest_escalation_fixes.py`), 22 of 29
+(75.9%) now correctly escalate. Worth noting this is a targeted re-test on
+the known failure set, not a clean full re-run of all 180 — a full re-run
+would be needed to confirm the fix doesn't introduce new false positives
+elsewhere, and I didn't have time/budget left to do that cleanly. Still, it's
+a real, measured improvement, not just a guess.
+
+**2. `fare_dispute` vs. `trip_cancellation_refund` genuinely overlap.**
+"I got charged a cancellation fee I disagree with" fits both categories
+reasonably. This shows up repeatedly in the confusion between these two
+intents. Partly a taxonomy design issue rather than a pure model error — a
+production system might merge these or allow multi-label.
+
+**3. Multi-issue tweets only get one label.** A tweet complaining about a
+missing delivery item *and* rude courier behavior in one message only gets
+classified under one intent. The taxonomy has an `ambiguous_multi_issue`
+escalation trigger as a stopgap, but it's not a real fix for the underlying
+single-label limitation.
+
+**4. The resolved-thread heuristic adds noise to the RAG corpus.** "Resolved"
+is currently just "thank-you phrase OR brand had the last word" — the second
+condition is weak, since the brand usually does have the last word regardless
+of whether the issue actually got fixed. Some retrieved "example resolutions"
+are probably threads the customer just gave up on.
+
+**5. Single-turn classification loses context for follow-up messages.**
+Some tweets in the raw data are just "I just sent a DM over" or similar —
+clearly a follow-up to an earlier, unlabeled conversation. Classified as
+`general_inquiry` by default, but the real intent is unknowable from the text
+alone. This is a structural limitation of scoring one message at a time.
+
+## 5. What's misleading about the headline numbers
+
+- The golden set is stratified (~20-25 per intent), not sampled proportional
+  to real traffic. Actual live traffic almost certainly skews toward
+  `general_inquiry` and `account_payment_issue`, which are the easier
+  categories — real accuracy on live traffic is probably higher than 71.7%,
+  but I don't have a way to confirm that without a proportionally-sampled set.
+- The LLM classifier and the LLM judge share a model family (both run on
+  `openai/gpt-oss-20b`). Any blind spot the model has — certain phrasing,
+  sarcasm, specific domains — is a blind spot both share, which could make the
+  judge look more favorable toward the system's own outputs than an
+  independent judge would.
+- The escalation false-negative rate (25.4%) sounds precise but is based on a
+  small number of actual true-positive cases in a 180-item set — a handful of
+  edge cases moving one way or the other shifts this rate noticeably. Treat it
+  as a rough estimate, not a stable measurement.
+- The 75.9% "fixed" rate on the escalation prompt improvement is measured only
+  on the known failure set, not validated against a full clean re-run — it's
+  real evidence of improvement, but not a confirmed final number.
+- "Resolved" threads used for grounding are heuristically labeled, not
+  verified. Some fraction of the RAG corpus is probably noise, and I don't
+  have a clean way to quantify how much.
+
+## 6. What I'd do next with a week
+
+1. Re-run the full 180-item eval with the improved escalation prompt to get a
+   real, not just targeted, before/after number.
+2. Build a second golden subset sampled proportional to actual traffic
+   frequency, to get an honest "expected live accuracy" figure alongside the
+   stratified one.
+3. Swap the judge to a different model family than the classifier/generator,
+   and re-run the human-agreement check to see if that changes the picture.
+4. Hand-verify a sample of "resolved" threads to calibrate how noisy that
+   heuristic actually is, rather than just flagging it as a known issue.
+5. Support multi-label intent classification for the subset of tweets that
+   clearly bundle more than one issue.
+
+## 7. Decision log
+
+- Picked Uber over an airline (my original plan) — similar volume and a
+  similarly real safety-escalation boundary, though I noted upfront that
+  Uber's actual historical replies are more repetitive, which limits how much
+  retrieval grounding can differentiate.
+- Defined the 7 intents by reading ~120 real tweets by hand before running any
+  model, so the taxonomy wasn't shaped by the same model being evaluated.
+- Escalation is decided by a fixed rule table reading LLM-extracted signals,
+  not by asking the LLM to decide escalate/auto-handle directly — wanted this
+  auditable and consistent across runs.
+- Started with LLM-assisted pre-labeling for the golden set, switched to fully
+  manual labeling partway through — partly because of repeated Groq rate
+  limits mid-run, but more importantly because pre-labeling with the same kind
+  of model being evaluated creates a circularity problem for an "independent"
+  ground truth set.
+- Used the local keyword classifier only to stratify sampling for the golden
+  set, never as a label suggestion.
+- "Resolved" thread status is a heuristic (thank-you phrase or brand-had-last-
+  word), not verified — accepted as a known limitation given time, flagged
+  explicitly rather than treated as clean ground truth.
+- Reported the escalation false-negative rate as its own separate metric
+  instead of folding it into F1, since a missed safety escalation is
+  categorically worse than an unnecessary one and F1 alone hides that.
+- Only collected reply-quality gold notes for a subset (~40) of the golden
+  set rather than all 180 — sized for a meaningful judge-agreement check, not
+  full coverage, given time constraints.
+- Kept intent classification and escalation-signal extraction in one LLM call
+  rather than two separate calls, to cut cost/latency, accepting that this
+  couples their error modes together.
+- Still generate a draft reply even when escalating, but mark it clearly as
+  `SUGGESTION_FOR_HUMAN_REVIEW` rather than auto-sendable — gives a human
+  agent a starting point without the system claiming it as final.
+- Randomized the labeling batch order rather than grouping by intent, to avoid
+  anchoring/fatigue bias where visually similar nearby examples get
+  rubber-stamped the same way.
+- Chose the trivial baseline as "escalate everything" rather than "escalate
+  nothing" — the safer of the two trivial strategies, since "escalate
+  nothing" isn't something any real team would seriously consider.
+- Switched Groq models twice over the course of the project —
+  `llama-3.3-70b-versatile` got deprecated mid-project, and
+  `openai/gpt-oss-120b` ran out of daily token budget during the eval run —
+  landed on `openai/gpt-oss-20b`, a separate model with its own budget. Added
+  retry/backoff and checkpointing to `run_eval.py` and the labeling script
+  after losing partial progress to a crash once, so a rate limit or network
+  blip doesn't cost re-running everything from scratch.
+- Reported the judge-human kappa (-0.009) honestly rather than reframing it,
+  and dug into *why* it was low (score compression + a real scoring-philosophy
+  difference) instead of just citing the number.
