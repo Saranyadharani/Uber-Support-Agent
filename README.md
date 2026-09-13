@@ -1,4 +1,4 @@
-# Uber Support Agent 
+# Uber Customer Support Agent 
 
 Take-home project for the Hiver SDE Intern assignment.
 An AI support agent for **Uber_Support** (Twitter customer-support handle),
