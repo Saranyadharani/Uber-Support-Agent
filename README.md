@@ -86,7 +86,7 @@ see the classification, escalation decision, and grounded reply live, with a
 toggle to show/hide the underlying reasoning.
 
 
-##Especially what makes my agent trustable.
+## Especially what makes my agent trustable.
 
 AI is only trustable only when it covers both transparency and accountability my agent acheives both by the following reason,
 **Transparency** - It gains the trust users and developers since the decision made by agent is explainable (based on what criteria does it has made the decision )
