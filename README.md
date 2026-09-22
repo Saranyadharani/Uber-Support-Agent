@@ -1,5 +1,6 @@
-# Uber Support Agent — Hiver SDE Intern Take-Home
+# Uber Customer Support Agent 
 
+Take-home project for the Hiver SDE Intern assignment.
 An AI support agent for **Uber_Support** (Twitter customer-support handle),
 built on a subsample of the Kaggle "Customer Support on Twitter" dataset.
 
@@ -8,104 +9,86 @@ drafts a reply grounded in how Uber has historically resolved similar cases
 (RAG over resolved threads), and decides auto-handle vs. escalate-to-human
 with a stated, rule-based reason.
 
-Uses **Groq** (`llama-3.3-70b-versatile`) for all LLM calls — fast, has a
-free tier, and OpenAI-compatible, so swapping models/providers later is a
-one-line change in `config.py`.
+https://github.com/user-attachments/assets/63e23635-f4dc-481e-8de2-659d042a4faa
 
-## Why Uber, why these intents
+Architecture :
 
-See `intents/taxonomy.py` for the full taxonomy + escalation rules and
-`REPORT.md` for the reasoning. Short version: Uber support has a genuine
-safety-escalation boundary (driver incidents must always go to a human),
-which makes the escalate/auto-handle decision defensible rather than
-arbitrary — the same property that would've made airlines work too.
+<img width="3596" height="1611" alt="image" src="https://github.com/user-attachments/assets/54483391-561a-4c57-a7b5-ce2b5d8746ae" />
 
-## Repo structure
 
-```
-config.py                          # brand, paths, model config — edit here first
-data/
-  01_reconstruct_threads.py        # twcs.csv -> per-brand threads (jsonl)
-intents/
-  taxonomy.py                      # the 7 intents + escalation rule table
-  classify_baseline_keyword.py     # TRIVIAL baseline
-  classify_embedding_knn.py        # SIMPLE baseline
-  classify_llm.py                  # SYSTEM classifier
-labeling/
-  prepare_labeling_batch.py        # stratified sample + LLM pre-suggested labels
-  label_tool.html                  # browser labeling UI (accept/override, keyboard-driven)
-  export_golden_set.py             # labeling_output.json -> eval/golden_set.csv
-retrieval/
-  build_index.py                   # embeds resolved threads for RAG
-  retrieve.py                      # query-time nearest-neighbor retrieval
-agent/
-  escalation_policy.py             # deterministic rule engine (not just LLM judgment)
-  reply_generator.py               # RAG-grounded reply drafting
-pipeline.py                        # ties classify -> escalate -> reply into one call
-eval/
-  metrics.py                       # accuracy/precision/recall/F1, escalation FN rate
-  llm_judge.py                     # 4-axis reply quality rubric
-  judge_agreement.py               # judge vs. human agreement (kappa + disagreement list)
-  run_eval.py                      # runs everything against golden_set.csv
-REPORT.md                          # problem framing, results, failure analysis, decision log
-```
+## Why Uber
 
-## Setup (~5 min)
+Picked Uber over an airline (my first instinct) mainly because the dataset has
+good volume for it and there's a real, defensible line between what should be
+auto-handled and what shouldn't — safety incidents always need a human, FAQ
+questions don't. That distinction is what makes the escalation logic more than
+a coin flip.
 
-```bash
-python -m venv venv && source venv/bin/activate
-pip install -r requirements.txt
-export GROQ_API_KEY=gsk_...   # free key at https://console.groq.com/keys
-```
+One thing I'll flag upfront rather than let you discover it: Uber's actual
+historical replies on Twitter are pretty repetitive ("please DM your trip ID").
+That limits how much the RAG grounding can really differentiate one reply from
+another — worth knowing before reading too much into the "grounded" quality
+score.
 
-Download `twcs.csv` from Kaggle (`thoughtvector/customer-support-on-twitter`)
-and place it at `data/raw/twcs.csv`.
+## How it works
 
-## Reproduce headline results (~15 min total, most of it is API calls)
+**Data.** `data/01_reconstruct_threads.py` reads the raw `twcs.csv` and walks
+the reply chains to rebuild full customer↔brand threads for Uber_Support. A
+thread counts as "resolved" if it ends with a thank-you-style phrase from the
+customer, or the brand had the last word — this is a heuristic, not verified,
+and it's a real source of noise (more on this in the report).
 
-```bash
-# 1. Reconstruct Uber threads from the raw 3M-row dataset (subsampled, ~2 min)
-python data/01_reconstruct_threads.py
+**Intents.** I read about 120 real tweets by hand before touching any model and
+landed on 7 categories: `trip_safety_incident`, `fare_dispute`, `lost_item`,
+`driver_behavior_complaint`, `account_payment_issue`, `trip_cancellation_refund`,
+`general_inquiry`. Full definitions are in `intents/taxonomy.py`.
 
-# 2. Build the RAG index over historically resolved threads (~1 min, local embeddings)
-python retrieval/build_index.py
+**Classification.** Three approaches, so results are comparable:
+- keyword/regex matching (`intents/classify_baseline_keyword.py`) — the floor
+- embedding + nearest-neighbor vote against the taxonomy's own examples
+  (`intents/classify_embedding_knn.py`) — a step up, no LLM calls
+- the actual system: an LLM call with the full taxonomy and thread context
+  (`intents/classify_llm.py`), which also pulls out safety/money/distress
+  signals in the same call
 
-# 3. (Already done for you — golden set is checked in at eval/golden_set.csv.)
-#    To rebuild it from scratch instead:
-#      python labeling/prepare_labeling_batch.py     # samples + LLM pre-labels ~200 examples
-#      open labeling/label_tool.html in a browser, load labeling_batch.json, label, export
-#      python labeling/export_golden_set.py
+**Escalation.** This is a rule table (`agent/escalation_policy.py`), not left
+up to the LLM to decide on its own. The LLM extracts signals (mentions safety,
+requests money, sounds distressed, etc.), and a fixed set of rules decides
+escalate or not from those signals. I wanted this auditable — "why did it
+escalate" should be answerable by reading code, not by re-prompting the model
+and hoping it explains itself the same way twice.
 
-# 4. Run the full eval: two baselines + system, intent + escalation + reply quality (~8-10 min)
-python eval/run_eval.py
+**Reply generation.** `agent/reply_generator.py` embeds the incoming message,
+retrieves the 3 most similar historically-resolved cases, and asks the LLM to
+draft a reply matching Uber's actual tone/pattern from those examples — not
+just "be a helpful support agent."
 
-# 5. (Optional, already summarized in REPORT.md) Judge-human agreement check:
-python eval/judge_agreement.py template     # samples 40 replies for you to hand-score
-# ... fill in eval/results/human_scoring_template.csv by hand ...
-python eval/judge_agreement.py
-```
+**Golden set.** 180 hand-labeled examples in `eval/golden_set.csv`. I started
+out trying LLM-assisted pre-labeling (have the model suggest, I just
+accept/override) but ran into repeated Groq rate limits mid-labeling, and more
+importantly realized it created a circularity problem — if the same kind of
+model pre-labels my ground truth and also runs my system, I'm not really
+testing anything independent. So I switched to fully manual labeling, using
+the local keyword classifier only to stratify sampling across intents (not as
+a suggestion). See `labeling/` for the sampling script, the tool I used to
+label (`label_tool.html`, a small keyboard-driven page), and the raw
+input/output.
 
-Outputs land in `eval/results/`: `predictions.csv`, `judged_replies.csv`, `summary.json`.
+**Eval harness.** `eval/run_eval.py` runs all three classifiers plus the
+system's escalation and reply generation against the golden set, and computes
+intent accuracy/F1, escalation precision/recall/false-negative rate, and
+LLM-judge reply quality scores. `eval/judge_agreement.py` checks how well that
+judge agrees with me scoring the same replies by hand.
 
-## Try a single message interactively
+**Frontend.** `frontend/` is a small Flask backend plus a single-page chat UI
+that calls the real pipeline — lets you type a message and
+see the classification, escalation decision, and grounded reply live, with a
+toggle to show/hide the underlying reasoning.
 
-```bash
-python pipeline.py
-```
 
-## What this does NOT do (see REPORT.md for the full list)
+## Especially what makes my agent trustable.
 
-- No fine-tuning — everything is prompted/retrieval-based, on purpose (see
-  Problem Framing in REPORT.md).
-- No multi-turn dialogue management — each customer message is scored
-  independently using thread context, not a stateful conversation manager.
-- No live Twitter/production integration — this is an offline pipeline
-  against the historical dataset.
+AI is only trustable only when it covers both transparency and accountability my agent acheives both by the following reason,
+**Transparency** - It gains the trust users and developers since the decision made by agent is explainable (based on what criteria does it has made the decision )
+**Accountability** - When something goes wrong, the organization search for the responsible person for the issue using my agent we can identify whether the agent is responsible or escalated human is responsible based upon who handled the customer issue .
 
-## Citations / borrowed work
-
-- Dataset: Kaggle `thoughtvector/customer-support-on-twitter`.
-- Embedding model: `sentence-transformers/all-MiniLM-L6-v2` (local, no API cost).
-- LLM: Groq API (`llama-3.3-70b-versatile` by default) for classification, reply generation, and judging.
-  Groq's chat completions endpoint is OpenAI-compatible; the `groq` Python SDK is a thin wrapper.
-- No borrowed code beyond standard library usage of pandas/sklearn/sentence-transformers.
