@@ -7,11 +7,16 @@ sys.path.append(".")
 import config
 from groq_utils import call_with_retry
 from retrieval.retrieve import retrieve_similar
+from intents.taxonomy import INTENT_HELP_URLS
 
 REPLY_PROMPT = """You are drafting a reply as the official {brand} support account, replying to a
 customer tweet. Match the brand's real historical tone and resolution pattern shown below.
-Keep it under 280 characters, be specific and actionable, and do not promise a refund amount
+Keep it under 220 characters, be specific and actionable, and do not promise a refund amount
 or compensation you are not authorized to commit to -- if unsure, direct them to DM with details.
+
+DO NOT include any URL or link in your reply, not even a shortened or partial one. The correct
+link will be added automatically after your reply, so just write the message text and reference
+"the link below" if it makes sense -- never write out a URL yourself.
 
 Intent: {intent}
 Customer's message: "{text}"
@@ -19,7 +24,7 @@ Customer's message: "{text}"
 Similar past cases and how {brand} actually replied (most similar first):
 {examples}
 
-Write ONLY the reply text, nothing else -- no quotes, no preamble.
+Write ONLY the reply text, nothing else -- no quotes, no preamble, no URL.
 """
 
 
@@ -38,6 +43,7 @@ def format_examples(examples: list[dict]) -> str:
 
 def generate_reply(client, text: str, intent: str, k: int = 3) -> dict:
     examples = retrieve_similar(text, k=k)
+    help_url = INTENT_HELP_URLS.get(intent, "https://help.uber.com/en/")
     prompt = REPLY_PROMPT.format(
         brand=config.BRAND_HANDLE,
         intent=intent,
@@ -53,11 +59,22 @@ def generate_reply(client, text: str, intent: str, k: int = 3) -> dict:
         messages=[{"role": "user", "content": prompt}],
     )
     time.sleep(1.5)  # pace calls to stay under the free-tier 8K TPM cap
-    reply_text = resp.choices[0].message.content.strip().strip('"')
+    reply_text = (resp.choices[0].message.content or "").strip().strip('"')
+
+    # safety net: if the model returned nothing usable, never show the
+    # customer a bare URL -- fall back to a generic, honest message
+    if len(reply_text) < 10:
+        reply_text = (
+            "We're sorry to hear this. We've logged your message and a member "
+            "of our team will look into it. In the meantime, more info here:"
+        )
+
+    full_reply = f"{reply_text} {help_url}"
     return {
-        "reply": reply_text,
+        "reply": full_reply,
         "grounded_on": [e["thread_id"] for e in examples],
         "grounding_examples": examples,
+        "help_url": help_url,
     }
 
 
@@ -66,3 +83,4 @@ if __name__ == "__main__":
     out = generate_reply(client, "my driver was speeding and it scared me", "trip_safety_incident")
     print(out["reply"])
     print("Grounded on threads:", out["grounded_on"])
+    print("Help URL used:", out["help_url"])

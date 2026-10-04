@@ -87,3 +87,13 @@ AUTO_HANDLE_INTENTS_DEFAULT = {
 }
 # lost_item and trip_cancellation_refund only auto-handle if no rule above
 # fires -- a plain "DM your trip ID" is fine, a dollar-amount refund dispute is not. safety and fare_dispute escalate by default via the rules above.
+
+INTENT_HELP_URLS = {
+    "lost_item": "https://help.uber.com/en/riders/article/forgot-something-in-an-uber-we-will-help-you-find-it?nodeId=feab9beb-9eac-47a2-b63a-6915d8821e1d",
+    "trip_safety_incident": "https://help.uber.com/en/riders/article/report-a-serious-incident-involving-a-driver-or-vehicle---?nodeId=306d3758-44fb-4e9c-88d6-0a9c1a8ce4a3",
+    "fare_dispute": "https://help.uber.com/en/riders/article/review-change-in-upfront-trip-price?nodeId=6711385d-9ef5-467d-9033-d8eca86688e6",
+    "trip_cancellation_refund": "https://help.uber.com/en/riders/article/dispute-my-cancellation-fee?nodeId=3e5b1b46-5d7e-438f-ab57-3fc78e61059d",
+    "driver_behavior_complaint": "https://help.uber.com/en/",
+    "account_payment_issue": "https://help.uber.com/en/",
+    "general_inquiry": "https://help.uber.com/en/",
+}

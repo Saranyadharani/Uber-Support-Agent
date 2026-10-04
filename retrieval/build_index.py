@@ -1,27 +1,37 @@
-# So basically what the code does is it takes the resolved threads from the JSONL file, extracts the first customer message and the last brand reply, and then uses a sentence transformer model to encode the customer messages into vector representations. These vectors are then saved to a NumPy file, and the corresponding records (thread ID, customer text, brand reply) are saved to a pickle file for later retrieval. This allows for efficient similarity searches or retrieval of relevant brand replies based on new customer messages.
+"""
+Build a local embedding index over historically RESOLVED threads
+(data/processed/<brand>_resolved_threads.jsonl), keyed by the customer's
+opening message. At reply time we retrieve the k most similar past resolved
+cases and show the brand's actual historical reply as grounding context.
+
+Note (decision log): resolution is a heuristic (see 01_reconstruct_threads.py)
+-- some "resolved" threads are actually just abandoned. This is a known
+source of noise in the grounding corpus, discussed in the report.
+"""
 import json
 import os
-import pickle 
+import pickle
 import sys
 
 import numpy as np
-from sentence_transformers import SentenceTransformer  # it transforms the text into a vector representation 
+from sentence_transformers import SentenceTransformer
 
 sys.path.append(".")
 import config
+
 
 def main():
     model = SentenceTransformer(config.EMBEDDING_MODEL)
 
     records = []
-    with open(config.RESOLVED_THREADS_JSONL) as f:
+    with open(config.RESOLVED_THREADS_JSONL, encoding="utf-8") as f:
         for line in f:
             thread = json.loads(line)
             turns = thread["turns"]
             first_customer = next((t for t in turns if t["author"] == "customer"), None)
             last_brand = next((t for t in reversed(turns) if t["author"] == "brand"), None)
             if not first_customer or not last_brand:
-                continue  # skip threads with no real back-and-forth
+                continue
             records.append({
                 "thread_id": thread["thread_id"],
                 "customer_text": first_customer["text"],
